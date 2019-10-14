@@ -27,7 +27,7 @@ Module.register("MMM-HabiticaStats", {
 	},
 
 	getTemplateData: function() {
-    return {};
+    return {"health_max":50, "health_current":40, "mana_current":10, "mana_max": 25, "exp_current":800, "exp_max":867};
 	},
 
   getPartyData: function() {
