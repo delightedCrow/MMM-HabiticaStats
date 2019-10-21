@@ -12,8 +12,7 @@ Module.register("MMM-HabiticaStats", {
 
 	getStyles: function() {
 		return [
-			this.file("assets/MMM-HabiticaStats.css"),
-			"font-awesome5.css"
+			this.file("assets/MMM-HabiticaStats.css")
 		];
 	},
 

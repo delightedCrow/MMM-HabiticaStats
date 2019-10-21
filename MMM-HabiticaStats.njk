@@ -1,27 +1,83 @@
+<div class="MMM-HabiticaStats">
+    <h1 class="light">delightedCrow</h1>
+    <div class="main-stats clearfix">
+      <div class="avatar"><img src="assets/avatar.png"/></div>
+      <div class="small-stats">
+        <div class="level title">Rogue &middot; Level 10</div>
+        <i class="hi-buffed habitica-icon"></i>Buffed
 
-<svg viewBox="0 0 36 36" class="circular-chart">
-  <path class="circle health"
-    stroke-dasharray="{{health_current / health_max * 100}}, 100"
-    d="M18 2.0845
-      a 15.9155 15.9155 0 0 1 0 31.831
-      a 15.9155 15.9155 0 0 1 0 -31.831"
-  />
-</svg>
+        <div class="wealth">
+          <span class="wealth-group">
+            <i class="wealth-icon hi-gold habitica-icon"></i>30.2 k
+          </span>
+          <span class="wealth-group">
+            <i class="wealth-icon hi-gem habitica-icon"></i>30
+          </span>
+          <span class="wealth-group">
+            <i class="wealth-icon hi-hourglass habitica-icon"></i>2
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="rings clearfix">
+      <div class="stat-ring">
+        <div class="title">Health</div>
+        <i class="stat-icon hi-health habitica-icon"></i>
+        <svg viewBox="0 0 39 39" class="circular-chart">
+          <circle class="shadow-circle" cx="50%" cy="50%" r="15.9155"/>
+          <circle class="circle health" stroke-dasharray="75, 100" cx="50%" cy="50%" r="15.9155"/>
+        </svg>
+        <div class="ring-stats">
+          <span class="current-stat">18</span> <span class="max-stat">/ 50</span>
+        </div>
+      </div>
 
-<svg viewBox="0 0 36 36" class="circular-chart">
-  <path class="circle mana"
-    stroke-dasharray="{{mana_current / mana_max * 100}}, 100"
-    d="M18 2.0845
-      a 15.9155 15.9155 0 0 1 0 31.831
-      a 15.9155 15.9155 0 0 1 0 -31.831"
-  />
-</svg>
+      <div class="stat-ring">
+        <div class="title">Mana</div>
+        <i class="stat-icon hi-mana habitica-icon"></i>
+        <svg viewBox="0 0 39 39" class="circular-chart">
+          <circle class="shadow-circle" cx="50%" cy="50%" r="15.9155"/>
+          <circle class="circle mana" stroke-dasharray="90, 100" cx="50%" cy="50%" r="15.9155"/>
+        </svg>
+        <div class="ring-stats">
+          <span class="current-stat">46</span> <span class="max-stat">/ 50</span>
+        </div>
+      </div>
 
-<svg viewBox="0 0 36 36" class="circular-chart">
-  <path class="circle experience"
-    stroke-dasharray="{{exp_current / exp_max * 100}}, 100"
-    d="M18 2.0845
-      a 15.9155 15.9155 0 0 1 0 31.831
-      a 15.9155 15.9155 0 0 1 0 -31.831"
-  />
-</svg>
+      <div class="stat-ring">
+        <div class="title">Experience</div>
+        <i class="stat-icon hi-experience habitica-icon"></i>
+        <svg viewBox="0 0 39 39" class="circular-chart">
+          <circle class="shadow-circle" cx="50%" cy="50%" r="15.9155"/>
+          <circle class="circle experience" stroke-dasharray="45, 100" cx="50%" cy="50%" r="15.9155"/>
+        </svg>
+        <div class="ring-stats">
+          <span class="current-stat">1999</span> <span class="max-stat">/ 3230</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="death-warning">
+      <i class="fas fa-skull"></i>
+    WARNING: incoming damage is higher than remaining health!
+    </div>
+
+    <div class="due-today big-stat-group clearfix">
+      <div class="title">Due Today</div>
+      <div class="stat-group due">
+        <i class="fas fa-calendar"></i><span class="big-stat">5</span> Dailies
+      </div>
+      <div class="stat-group due">
+        <i class="fas fa-check-circle"></i><span class="big-stat">2</span> To Dos
+      </div>
+    </div>
+    <div class="estimated-damage big-stat-group">
+      <div class="title">Estimated Damage</div>
+      <div class="stat-group">
+        <i class="fas fa-user"></i><span class="big-stat">14.2</span> damage to you
+      </div>
+      <div class="stat-group">
+        <i class="fas fa-users"></i><span class="big-stat">2.1</span> damage to your party members
+      </div>
+    </div>
+  </div>
