@@ -1,20 +1,20 @@
 <div class="MMM-HabiticaStats">
-    <h1 class="light">delightedCrow</h1>
+    <h1 class="light">{{username}}</h1>
     <div class="main-stats clearfix">
       <div class="avatar"><img src="assets/avatar.png"/></div>
       <div class="small-stats">
-        <div class="level title">Rogue &middot; Level 10</div>
+        <div class="level title">{{classname}} &middot; Level {{level}}</div>
         <i class="hi-buffed habitica-icon"></i>Buffed
 
         <div class="wealth">
           <span class="wealth-group">
-            <i class="wealth-icon hi-gold habitica-icon"></i>30.2 k
+            <i class="wealth-icon hi-gold habitica-icon"></i>{{gold}}
           </span>
           <span class="wealth-group">
-            <i class="wealth-icon hi-gem habitica-icon"></i>30
+            <i class="wealth-icon hi-gem habitica-icon"></i>{{gems}}
           </span>
           <span class="wealth-group">
-            <i class="wealth-icon hi-hourglass habitica-icon"></i>2
+            <i class="wealth-icon hi-hourglass habitica-icon"></i>{{hourglasses}}
           </span>
         </div>
       </div>
@@ -25,10 +25,10 @@
         <i class="stat-icon hi-health habitica-icon"></i>
         <svg viewBox="0 0 39 39" class="circular-chart">
           <circle class="shadow-circle" cx="50%" cy="50%" r="15.9155"/>
-          <circle class="circle health" stroke-dasharray="75, 100" cx="50%" cy="50%" r="15.9155"/>
+          <circle class="circle health" stroke-dasharray="{{health / max_health * 100}}, 100" cx="50%" cy="50%" r="15.9155"/>
         </svg>
         <div class="ring-stats">
-          <span class="current-stat">18</span> <span class="max-stat">/ 50</span>
+          <span class="current-stat">{{health}}</span> <span class="max-stat">/ {{max_health}}</span>
         </div>
       </div>
 
@@ -37,10 +37,10 @@
         <i class="stat-icon hi-mana habitica-icon"></i>
         <svg viewBox="0 0 39 39" class="circular-chart">
           <circle class="shadow-circle" cx="50%" cy="50%" r="15.9155"/>
-          <circle class="circle mana" stroke-dasharray="90, 100" cx="50%" cy="50%" r="15.9155"/>
+          <circle class="circle mana" stroke-dasharray="{{mana / max_mana * 100}}, 100" cx="50%" cy="50%" r="15.9155"/>
         </svg>
         <div class="ring-stats">
-          <span class="current-stat">46</span> <span class="max-stat">/ 50</span>
+          <span class="current-stat">{{mana}}</span> <span class="max-stat">/ {{max_mana}}</span>
         </div>
       </div>
 
@@ -49,10 +49,10 @@
         <i class="stat-icon hi-experience habitica-icon"></i>
         <svg viewBox="0 0 39 39" class="circular-chart">
           <circle class="shadow-circle" cx="50%" cy="50%" r="15.9155"/>
-          <circle class="circle experience" stroke-dasharray="45, 100" cx="50%" cy="50%" r="15.9155"/>
+          <circle class="circle experience" stroke-dasharray="{{experience / max_experience * 100}}, 100" cx="50%" cy="50%" r="15.9155"/>
         </svg>
         <div class="ring-stats">
-          <span class="current-stat">1999</span> <span class="max-stat">/ 3230</span>
+          <span class="current-stat">{{experience}}</span> <span class="max-stat">/ {{max_experience}}</span>
         </div>
       </div>
     </div>
