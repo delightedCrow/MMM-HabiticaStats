@@ -19,7 +19,7 @@ To use this module:
 modules: [
   {
     module: "MMM-HabiticaStats",
-    position: "middle_center",
+    position: "middle_center", // put it wherever you want
     config: {
       userID: "YOUR-HABITICA-USER-ID-HERE",
       APIToken: "YOUR-HABITICA-API-TOKEN-HERE"
