@@ -1,15 +1,15 @@
 {
-  "name": "MMM-HabiticaStats",
-  "version": "1.0.0",
-  "description": "A MagicMirror module for displaying Habitica player stats.",
-  "main": "index.js",
-  "scripts": {
-    "watch": "node-sass sass/MMM-HabiticaStats.scss assets/MMM-HabiticaStats.css -w",
-    "build": "node-sass sass/MMM-HabiticaStats.scss assets/MMM-HabiticaStats.css --output-style compressed"
-  },
-  "author": "@delightedCrow",
-  "license": "ISC",
-  "devDependencies": {
-    "node-sass": "^4.9.3"
-  }
+	"name": "MMM-HabiticaStats",
+	"version": "1.0.0",
+	"description": "A MagicMirror module for displaying Habitica player stats.",
+	"main": "index.js",
+	"scripts": {
+		"watch": "node-sass sass/MMM-HabiticaStats.scss assets/MMM-HabiticaStats.css -w",
+		"build": "node-sass sass/MMM-HabiticaStats.scss assets/MMM-HabiticaStats.css --output-style compressed"
+	},
+	"author": "@delightedCrow",
+	"license": "ISC",
+	"devDependencies": {
+		"node-sass": "^4.9.3"
+	}
 }

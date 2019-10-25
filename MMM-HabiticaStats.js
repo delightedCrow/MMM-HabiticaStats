@@ -6,81 +6,83 @@
  */
 Module.register("MMM-HabiticaStats", {
 	defaults: {
-    userID: null,
-    APIToken: null
+		userID: null,
+		APIToken: null
 	},
-    userData: {},
-		questContent: {},
-		gearContent: {},
 
-    getScripts: function() {
-        return ["moment.js"];
-    },
+	userData: {},
+	questContent: {},
+	gearContent: {},
+
+	getScripts: function() {
+		return ["moment.js"];
+	},
 
 	getStyles: function() {
 		return [
 			this.file("assets/MMM-HabiticaStats.css"),
-            'font-awesome.css'
+						'font-awesome.css'
 		];
 	},
 
 	start: function() {
 		Log.info("Starting module: " + this.name);
-    // get content data first
+		// get content data first
 		this.getContentData();
-    this.getAuthenticatedUserData();
+		this.getAuthenticatedUserData();
+		// this.getPartyData();
 	},
 
-  getTemplate: function() {
+	getTemplate: function() {
 		return "MMM-HabiticaStats.njk"
 	},
 
 	getTemplateData: function() {
-    return this.userData;
+		return this.userData;
 	},
 
-  getAuthenticatedUserData: function() {
-      let url = "https://habitica.com/api/v3/user";
-      let req = new XMLHttpRequest();
-      let mod = this;
+	getAuthenticatedUserData: function() {
+		let url = "https://habitica.com/api/v3/user";
+		let req = new XMLHttpRequest();
+		let mod = this;
 
-      req.addEventListener("load", function() {
-          if (this.status == 200) {
-              let data = JSON.parse(this.responseText).data;
-							Log.info("AuthenticatedUserData: ", data);
-              var userData = {};
-              userData.hourglasses = data.purchased.plan.consecutive.trinkets;
-              userData.gems = data.balance * 4;
-              userData.gold = Math.round( data.stats.gp);
-              userData.username = data.profile.name;
-              userData.classname = data.stats.class;
-              userData.level = data.stats.lvl;
-              userData.experience = Math.round(data.stats.exp);
-              userData.max_experience = Math.round(data.stats.toNextLevel);
-              userData.health = Math.round(data.stats.hp);
-              userData.max_health = Math.round(data.stats.maxHealth);
-              userData.mana = Math.round(data.stats.mp);
-              userData.max_mana = Math.round(data.stats.maxMP);
+		req.addEventListener("load", function() {
+			if (this.status == 200) {
+					let data = JSON.parse(this.responseText).data;
+					Log.info("AuthenticatedUserData: ", data);
+					var userData = {};
+					userData.hourglasses = data.purchased.plan.consecutive.trinkets;
+					userData.gems = data.balance * 4;
+					userData.gold = Math.round( data.stats.gp);
+					userData.username = data.profile.name;
+					userData.classname = data.stats.class;
+					userData.level = data.stats.lvl;
+					userData.experience = Math.round(data.stats.exp);
+					userData.max_experience = Math.round(data.stats.toNextLevel);
+					userData.health = Math.round(data.stats.hp);
+					userData.max_health = Math.round(data.stats.maxHealth);
+					userData.mana = Math.round(data.stats.mp);
+					userData.max_mana = Math.round(data.stats.maxMP);
 
-							userData.quest = data.party.quest;
-							userData.stealth = data.stats.buffs.stealth;
-							userData.armorBuffs = mod.calculateArmorBuffs(userData.classname, data.items.gear.equipped);
-							userData.constitution = data.stats.con + data.stats.buffs.con + userData.armorBuffs.con + Math.floor(userData.level/2);
-              mod.userData = userData;
-              mod.updateDom();
-							mod.getAuthenticatedUserTasks();
-          }
-      });
-      req.addEventListener("error", function() {
-        // most likely an internet connection issue
-        Log.error("Could not connect to the Habitica server.");
-      });
+					userData.quest = data.party.quest;
+					userData.stealth = data.stats.buffs.stealth;
+					userData.armorBuffs = mod.calculateArmorBuffs(userData.classname, data.items.gear.equipped);
+					userData.constitution = data.stats.con + data.stats.buffs.con + userData.armorBuffs.con + Math.floor(userData.level/2);
+					mod.userData = userData;
+					mod.updateDom();
+					mod.getAuthenticatedUserTasks();
+			}
+		});
+		req.addEventListener("error", function() {
+			// most likely an internet connection issue
+			Log.error("Could not connect to the Habitica server.");
+		});
 
-      req.open("GET", url);
-      req.setRequestHeader('x-api-user', this.config.userID);
-      req.setRequestHeader('x-api-key', this.config.APIToken);
-      req.send();
-  },
+		req.open("GET", url);
+		req.setRequestHeader('x-api-user', this.config.userID);
+		req.setRequestHeader('x-api-key', this.config.APIToken);
+		req.send();
+	},
 
 	getAuthenticatedUserTasks: function() {
 		let url = "https://habitica.com/api/v3/tasks/user";
@@ -88,25 +90,25 @@ Module.register("MMM-HabiticaStats", {
 		let mod = this;
 
 		req.addEventListener("load", function() {
-				if (this.status == 200) {
-						let data = JSON.parse(this.responseText).data;
-						Log.info("AuthenticatedUserTasks: ", data);
+			if (this.status == 200) {
+				let data = JSON.parse(this.responseText).data;
+				Log.info("AuthenticatedUserTasks: ", data);
 
-						var bossStrength = null;
-						// if user has a quest key they are on a quest
-						if (mod.userData.quest.key) {
-							let quest = mod.questContent[mod.userData.quest.key];
-							// if the quest has a boss it's a boss quest, otherwise it's a collection quest
-							if (quest.boss) {
-								bossStrength = quest.boss.str;
-							}
-						}
-
-						mod.userData.tasks = mod.calculateDamage(mod.userData.constitution, mod.userData.stealth, data, bossStrength);
-						// Log.info("tasks: ", mod.userData.tasks);
-
-						mod.updateDom();
+				var bossStrength = null;
+				// if user has a quest key they are on a quest
+				if (mod.userData.quest.key) {
+					let quest = mod.questContent[mod.userData.quest.key];
+					// if the quest has a boss it's a boss quest, otherwise it's a collection quest
+					if (quest.boss) {
+						bossStrength = quest.boss.str;
+					}
 				}
+
+				mod.userData.tasks = mod.calculateDamage(mod.userData.constitution, mod.userData.stealth, data, bossStrength);
+				// Log.info("tasks: ", mod.userData.tasks);
+
+				mod.updateDom();
+			}
 		});
 		req.addEventListener("error", function() {
 			// most likely an internet connection issue
@@ -129,8 +131,7 @@ Module.register("MMM-HabiticaStats", {
 		data.damageToParty = 0;
 		data.dailiesEvaded = 0; // due to stealth
 
-        var cronTime = moment().endOf('day');
-        Log.info("CronTime ", cronTime);
+		var cronTime = moment().endOf('day');
 		var stealthRemaining = stealth;
 		// calculate bonus from user's constitution
 		var conBonus = 1 - (constitution / 250);
@@ -150,7 +151,7 @@ Module.register("MMM-HabiticaStats", {
 
 							data.dailiesDue ++;
 							const valueMin = -47.27; // task values are capped ...
-				      const valueMax =  21.27; // ... for some purposes
+							const valueMax =  21.27; // ... for some purposes
 							var taskDamage = (task.value < valueMin) ? valueMin : task.value;
 							taskDamage = (taskDamage > valueMax) ? valueMax : taskDamage;
 							taskDamage = Math.abs(Math.pow(0.9747, taskDamage));
@@ -167,7 +168,6 @@ Module.register("MMM-HabiticaStats", {
 
 							var damage = taskDamage * conBonus * task.priority * 2;
 							data.damageToSelf += Math.round(damage * 10) / 10; // round damage to nearest tenth because game does
-							let selfDamageNoBoss = damage;
 
 							// if we have a quest and a boss we can calculate the damage to party from this daily
 							if (bossStrength !== null) {
@@ -176,21 +176,16 @@ Module.register("MMM-HabiticaStats", {
 								data.damageToParty += bossDamage;
 								data.damageToSelf += bossDamage;
 							}
-							// Log.info("Daily: " + task.text + ", Damage to self: " + selfDamageNoBoss + ", Self+Boss: " + (selfDamageNoBoss + bossDamage) + ", To Party: " + bossDamage + " Checklist: " + task.checklist.length + " Con: " + constitution);
 						}
 					}
 					break;
 				case "todo":
 					// We want all todos with a date that are due today (this should include overdue tasks)
 					if (task.date) {
-						Log.info("TODO: ", task);
-                        // "2019-10-26T 19:41:03 -07:00"
-                        // "2019-10-25T 04:00:03.738Z"
-                        var taskTime = moment(task.date);
-                        Log.info("taskTime ", taskTime);
-                        if (taskTime.isBefore(cronTime)) {
-                            data.todosDue ++;
-                        }
+						var taskTime = moment(task.date);
+						if (taskTime.isBefore(cronTime)) {
+								data.todosDue ++;
+						}
 					}
 				break;
 			}
@@ -216,55 +211,55 @@ Module.register("MMM-HabiticaStats", {
 				}
 			}
 		}
-		Log.info("Armor buffs: ", armorBuffs);
+		
 		return armorBuffs;
 	},
 
-  getPartyData: function() {
-    let url = 'https://habitica.com/api/v3/groups/party';
-    let req = new XMLHttpRequest();
-    let mod = this;
+	getPartyData: function() {
+		let url = 'https://habitica.com/api/v3/groups/party';
+		let req = new XMLHttpRequest();
+		let mod = this;
 
-    req.addEventListener("load", function() {
-      if (this.status == 200) {
+		req.addEventListener("load", function() {
+			if (this.status == 200) {
 				let data = JSON.parse(this.responseText);
-        Log.info("Party Data: ", data);
-      }
-    });
+				Log.info("Party Data: ", data);
+			}
+		});
 
-    req.addEventListener("error", function() {
-      // most likely an internet connection issue
-      Log.error("Could not connect to the Habitica server.");
-    });
+		req.addEventListener("error", function() {
+			// most likely an internet connection issue
+			Log.error("Could not connect to the Habitica server.");
+		});
 
-    req.open("GET", url);
-    req.setRequestHeader('x-api-user', this.config.userID);
-    req.setRequestHeader('x-api-key', this.config.APIToken);
-    req.send();
-  },
+		req.open("GET", url);
+		req.setRequestHeader('x-api-user', this.config.userID);
+		req.setRequestHeader('x-api-key', this.config.APIToken);
+		req.send();
+	},
 
 	getContentData: function() {
-    let url = 'https://habitica.com/api/v3/content';
-    let req = new XMLHttpRequest();
-    let mod = this;
+		let url = 'https://habitica.com/api/v3/content';
+		let req = new XMLHttpRequest();
+		let mod = this;
 
-    req.addEventListener("load", function() {
-      if (this.status == 200) {
+		req.addEventListener("load", function() {
+			if (this.status == 200) {
 				let data = JSON.parse(this.responseText);
 				mod.questContent = data.data.quests;
 				mod.gearContent = data.data.gear.flat;
-        Log.info("Content data: ", mod.questContent);
-      }
-    });
+				Log.info("Content data: ", mod.questContent);
+			}
+		});
 
-    req.addEventListener("error", function() {
-      // most likely an internet connection issue
-      Log.error("Could not connect to the Habitica server.");
-    });
+		req.addEventListener("error", function() {
+			// most likely an internet connection issue
+			Log.error("Could not connect to the Habitica server.");
+		});
 
-    req.open("GET", url);
-    req.setRequestHeader('x-api-user', this.config.userID);
-    req.setRequestHeader('x-api-key', this.config.APIToken);
-    req.send();
-  }
+		req.open("GET", url);
+		req.setRequestHeader('x-api-user', this.config.userID);
+		req.setRequestHeader('x-api-key', this.config.APIToken);
+		req.send();
+	}
 });
