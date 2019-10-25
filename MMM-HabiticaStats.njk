@@ -65,19 +65,19 @@
     <div class="due-today big-stat-group clearfix">
       <div class="title">Due Today</div>
       <div class="stat-group due">
-        <i class="fas fa-calendar"></i><span class="big-stat">5</span> Dailies
+        <i class="fas fa-calendar"></i><span class="big-stat">{{tasks.dailiesDue}}</span> Dailies
       </div>
       <div class="stat-group due">
-        <i class="fas fa-check-circle"></i><span class="big-stat">2</span> To Dos
+        <i class="fas fa-check-circle"></i><span class="big-stat">{{tasks.todosDue}}</span> To Dos
       </div>
     </div>
     <div class="estimated-damage big-stat-group">
       <div class="title">Estimated Damage</div>
       <div class="stat-group">
-        <i class="fas fa-user"></i><span class="big-stat">14.2</span> damage to you
+        <i class="fas fa-user"></i><span class="big-stat">{{tasks.damageToSelf}}</span> damage to you
       </div>
       <div class="stat-group">
-        <i class="fas fa-users"></i><span class="big-stat">2.1</span> damage to your party members
+        <i class="fas fa-users"></i><span class="big-stat">{{tasks.damageToParty}}</span> damage to your party members
       </div>
     </div>
   </div>
