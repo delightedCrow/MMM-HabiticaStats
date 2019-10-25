@@ -57,10 +57,12 @@
       </div>
     </div>
 
+    {% if health < tasks.damageToSelf %}
     <div class="death-warning">
       <i class="fas fa-skull"></i>
     WARNING: incoming damage is higher than remaining health!
     </div>
+    {% endif %}
 
     <div class="due-today big-stat-group clearfix">
       <div class="title">Due Today</div>
