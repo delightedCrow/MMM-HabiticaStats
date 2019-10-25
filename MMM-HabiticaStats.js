@@ -13,6 +13,10 @@ Module.register("MMM-HabiticaStats", {
 		questContent: {},
 		gearContent: {},
 
+    getScripts: function() {
+        return ["moment.js"];
+    },
+
 	getStyles: function() {
 		return [
 			this.file("assets/MMM-HabiticaStats.css"),
@@ -125,6 +129,8 @@ Module.register("MMM-HabiticaStats", {
 		data.damageToParty = 0;
 		data.dailiesEvaded = 0; // due to stealth
 
+        var cronTime = moment().endOf('day');
+        Log.info("CronTime ", cronTime);
 		var stealthRemaining = stealth;
 		// calculate bonus from user's constitution
 		var conBonus = 1 - (constitution / 250);
@@ -178,6 +184,13 @@ Module.register("MMM-HabiticaStats", {
 					// We want all todos with a date that are due today (this should include overdue tasks)
 					if (task.date) {
 						Log.info("TODO: ", task);
+                        // "2019-10-26T 19:41:03 -07:00"
+                        // "2019-10-25T 04:00:03.738Z"
+                        var taskTime = moment(task.date);
+                        Log.info("taskTime ", taskTime);
+                        if (taskTime.isBefore(cronTime)) {
+                            data.todosDue ++;
+                        }
 					}
 				break;
 			}
