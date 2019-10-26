@@ -23,19 +23,19 @@ class HabiticaUser {
 		return this.apiData.stats.class;
 	}
 	get experience() {
-		return Math.round(this.apiData.stats.exp);
+		return Math.floor(this.apiData.stats.exp);
 	}
 	get experienceToLevel() {
 		return Math.round(this.apiData.stats.toNextLevel);
 	}
 	get mana() {
-		return Math.round(this.apiData.stats.mp);
+		return Math.floor(this.apiData.stats.mp);
 	}
 	get manaMax() {
 		return Math.round(this.apiData.stats.maxMP);
 	}
 	get health() {
-		return Math.round(this.apiData.stats.hp);
+		return Math.floor(this.apiData.stats.hp);
 	}
 	get healthMax() {
 		return Math.round(this.apiData.stats.maxHealth);
