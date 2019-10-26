@@ -1,3 +1,96 @@
+class HabiticaUserTasksManager {
+	constructor(data) {
+		this.apiData = data;
+	}
+
+	get taskList() {
+		return this.apiData;
+	}
+
+	get todosDueToday() {
+		return this.todosDueOnDate(moment().endOf('day'));
+	}
+
+	todosDueOnDate(dueDate) {
+		var todos = [];
+
+		for (var i=0; i<this.taskList.length; i++) {
+			let task = this.taskList[i];
+			if (task.type != "todo") { continue; }
+
+			if (task.date) {
+				var taskTime = moment(task.date);
+				if (taskTime.isBefore(dueDate)) {
+						todos.push(task);
+				}
+			}
+		}
+
+		return todos;
+	}
+
+	calculateDailyStatsFor(user) {
+
+		var stats = {
+			dueCount: 0,
+			totalDamageToSelf: 0,
+			dailyDamageToSelf: 0,
+			bossDamage: 0,
+			dailiesEvaded: 0
+		}
+		const min = -47.27; // task value cap min
+		const max = 21.27; // task value cap max
+		var stealthRemaining = user.stealth;
+		let conBonus = user.constitutionBonus;
+
+		for (var i=0; i<this.taskList.length; i++) {
+			let task = this.taskList[i];
+			// skip the rest of this for loop if the task isn't a daily, isn't due, or is completed
+			if (task.type != "daily") { continue; }
+			if (!task.isDue || task.completed) { continue; }
+
+			// thieves can cast stealth to avoid a certain number of dailies
+			if (stealthRemaining > 0) { // avoided!
+				stealthRemaining --;
+				stats.dailiesEvaded ++;
+			} else { // calculate damage!
+
+				stats.dueCount ++;
+
+				var taskDamage = (task.value < min) ? min : task.value;
+				taskDamage = (taskDamage > max) ? max : taskDamage;
+				taskDamage = Math.abs(Math.pow(0.9747, taskDamage));
+
+				// if a subtask is completed, decrease the task damage proportionately
+				if (task.checklist.length > 0 ) {
+					var subtaskDamage = (taskDamage/task.checklist.length);
+					for (var j=0; j<task.checklist.length; j++) {
+						if (task.checklist[j].completed) {
+							taskDamage = taskDamage - subtaskDamage;
+						}
+					}
+				}
+
+				var damage = taskDamage * conBonus * task.priority * 2;
+				stats.dailyDamageToSelf += Math.round(damage * 10) / 10; // round damage to nearest tenth because game does
+
+				// if we have a quest and a boss we can calculate the damage to party from this daily
+				if (user.quest.data !== null && user.quest.data.boss) {
+					var bossDamage = (task.priority < 1) ? (taskDamage * task.priority) : taskDamage;
+					bossDamage *= user.quest.data.boss.str;
+					stats.bossDamage += bossDamage;
+				}
+			}
+		}
+		// formatting display - rounding up to be safe like Lady Alys does :) - see https://github.com/Alys/tools-for-habitrpg/blob/29710e0f99c9d706d6911f49d60bcceff2792768/habitrpg_user_data_display.html#L1952
+		stats.totalDamageToSelf = stats.dailyDamageToSelf + stats.bossDamage;
+		stats.totalDamageToSelf = Math.ceil(stats.totalDamageToSelf * 10) / 10;
+		stats.bossDamage = Math.ceil(stats.bossDamage * 10) / 10;
+
+		this.dailyStats = stats;
+	}
+}
+
 class HabiticaUser {
 	constructor(data) {
 		this.apiData = data;
@@ -100,97 +193,13 @@ class HabiticaUser {
 		return (this.apiData.party.quest);
 	}
 
-
-	// TASKS - SEPARATE THESE LATER:
-	set tasks(apiData) {
-		this._tasks = apiData;
-		this._calculateDailiesData();
+	set tasks(userTaskManager) {
+		this._taskManager = userTaskManager;
+		this.tasks.calculateDailyStatsFor(this);
 	}
 
 	get tasks() {
-		return this._tasks;
-	}
-
-	_calculateDailiesData() {
-
-		var dmg = {
-			dueCount: 0,
-			totalDamageToSelf: 0,
-			dailyDamageToSelf: 0,
-			bossDamage: 0,
-			dailiesEvaded: 0
-		}
-		const min = -47.27; // task value cap min
-		const max = 21.27; // task value cap max
-		var stealthRemaining = this.stealth;
-		let conBonus = this.constitutionBonus;
-
-		for (var i=0; i<this._tasks.length; i++) {
-			let task = this._tasks[i];
-			// skip the rest of this for loop if the task isn't a daily, isn't due, or is completed
-			if (task.type != "daily") { continue; }
-			if (!task.isDue || task.completed) { continue; }
-
-			// thieves can cast stealth to avoid a certain number of dailies
-			if (stealthRemaining > 0) { // avoided!
-				stealthRemaining --;
-				dmg.dailiesEvaded ++;
-			} else { // calculate damage!
-
-				dmg.dueCount ++;
-
-				var taskDamage = (task.value < min) ? min : task.value;
-				taskDamage = (taskDamage > max) ? max : taskDamage;
-				taskDamage = Math.abs(Math.pow(0.9747, taskDamage));
-
-				// if a subtask is completed, decrease the task damage proportionately
-				if (task.checklist.length > 0 ) {
-					var subtaskDamage = (taskDamage/task.checklist.length);
-					for (var j=0; j<task.checklist.length; j++) {
-						if (task.checklist[j].completed) {
-							taskDamage = taskDamage - subtaskDamage;
-						}
-					}
-				}
-
-				var damage = taskDamage * conBonus * task.priority * 2;
-				dmg.dailyDamageToSelf += Math.round(damage * 10) / 10; // round damage to nearest tenth because game does
-
-				// if we have a quest and a boss we can calculate the damage to party from this daily
-				if (this.quest.data !== null && this.quest.data.boss) {
-					var bossDamage = (task.priority < 1) ? (taskDamage * task.priority) : taskDamage;
-					bossDamage *= this.quest.data.boss.str;
-					dmg.bossDamage += bossDamage;
-				}
-			}
-		}
-		// formatting display - rounding up to be safe like Lady Alys does :) - see https://github.com/Alys/tools-for-habitrpg/blob/29710e0f99c9d706d6911f49d60bcceff2792768/habitrpg_user_data_display.html#L1952
-		dmg.totalDamageToSelf = dmg.dailyDamageToSelf + dmg.bossDamage;
-		dmg.totalDamageToSelf = Math.ceil(dmg.totalDamageToSelf * 10) / 10;
-		dmg.bossDamage = Math.ceil(dmg.bossDamage * 10) / 10;
-		this.dailies = dmg;
-	}
-
-	get todosDueToday() {
-		return this.todosDueOnDate(moment().endOf('day'));
-	}
-
-	todosDueOnDate(dueDate) {
-		var todos = [];
-
-		for (var i=0; i<this.tasks.length; i++) {
-			let task = this.tasks[i];
-			if (task.type != "todo") { continue; }
-
-			if (task.date) {
-				var taskTime = moment(task.date);
-				if (taskTime.isBefore(dueDate)) {
-						todos.push(task);
-				}
-			}
-		}
-
-		return todos;
+		return this._taskManager;
 	}
 }
 
@@ -240,14 +249,14 @@ class HabiticaAPIManager {
 		req.onload = function() {
 			if (this.status == 200) {
 				var data = JSON.parse(this.responseText).data;
-				callback(data);
+				var tasks = new HabiticaUserTasksManager(data);
+				callback(tasks);
 			}
 		};
 		req.send();
 	}
 
 	fetchUserWithTasks(userID, userAPIToken, callback) {
-		// let originalCallback = callback;
 		this.fetchAuthenticatedUser(userID, userAPIToken, (user) => {
 			this.fetchUserTasks(userID, userAPIToken, (tasks) => {
 				user.tasks = tasks;
