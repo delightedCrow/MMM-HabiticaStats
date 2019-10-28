@@ -106,6 +106,13 @@ class HabiticaUser {
 	get gold() {
 		return Math.round(this.apiData.stats.gp);
 	}
+	get goldCompact() {
+		const formatter = new Intl.NumberFormat('lookup', {
+			notation: 'compact',
+			compactDisplay: 'short',
+		});
+		return formatter.format(this.gold);
+	}
 	get level() {
 		return this.apiData.stats.lvl;
 	}

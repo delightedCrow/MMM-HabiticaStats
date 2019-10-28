@@ -45,6 +45,7 @@ Module.register("MMM-HabiticaStats", {
 	fetchUserData: function() {
 		this.apiManager.fetchUserWithTasks(this.config.userID, this.config.APIToken, (user) => {
 				this.user = user;
+				Log.info("Fetched User: ", this.user);
 				this.updateDom();
 				this.updateTimer = setInterval(() => {
 					this.fetchUserData();

@@ -1,24 +1,22 @@
 <div class="MMM-HabiticaStats">
-	<div class="user-header">
-		<img src="modules/MMM-HabiticaStats/assets/melior.png"/>
+	<div class="title-header">
+		<img src="modules/MMM-HabiticaStats/assets/melior.svg"/>
 		<h1 class="light">{{user.displayName}}</h1>
 		<div class="spacer"></div>
 		</div>
 		<div class="main-stats clearfix">
 			<div class="small-stats">
-				<div class="level title">{{user.className}} &middot; Level {{user.level}}</div>
-				{# <i class="hi-buffed habitica-icon"></i>Buffed #}
-
+				<div class="level title"><i class="hi-class hi-{{user.className}} habitica-icon small-stat-icon"></i>{{user.className}} <span class="middot-separator">&middot;</span> Level {{user.level}}</div>
 				<div class="wealth">
 					<span class="wealth-group">
-						<i class="wealth-icon hi-gold habitica-icon"></i>{{user.gold}}
+						<i class="small-stat-icon hi-gold habitica-icon"></i>{{user.goldCompact}}<span class="unit">gold</span>
 					</span>
 					<span class="wealth-group">
-						<i class="wealth-icon hi-gem habitica-icon"></i>{{user.gems}}
+						<i class="small-stat-icon hi-gem habitica-icon"></i>{{user.gems}}<span class="unit">gems</span>
 					</span>
-					<span class="wealth-group">
+					{# <span class="wealth-group">
 						<i class="wealth-icon hi-hourglass habitica-icon"></i>{{user.hourglasses}}
-					</span>
+					</span> #}
 				</div>
 			</div>
 		</div>
