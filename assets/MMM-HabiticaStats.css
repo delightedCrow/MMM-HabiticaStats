@@ -5,14 +5,7 @@
   max-width: 560px;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border-radius: 25px;
-  /* .level {
-		text-transform: uppercase;
-	}
-
-	.title {
-		text-transform: uppercase;
-	} */ }
+  border-radius: 25px; }
   .MMM-HabiticaStats .main-stats {
     padding: 15px 0;
     text-transform: uppercase;
@@ -60,6 +53,8 @@
       display: block;
       float: left;
       margin: 5px 20px 5px 5px; }
+  .MMM-HabiticaStats .title {
+    text-transform: uppercase; }
   .MMM-HabiticaStats .stat-ring {
     margin: 0 20px 0 0;
     width: 160px;
@@ -96,8 +91,8 @@
     stroke: #50B5E9; }
   .MMM-HabiticaStats .stat-icon {
     position: absolute;
-    top: 78px;
-    left: 56px;
+    top: calc(50% - 23px);
+    left: calc(50% - 23px);
     width: 45px;
     height: 45px;
     filter: drop-shadow(2px 2px 4px rgba(10, 10, 10, 0.5)); }

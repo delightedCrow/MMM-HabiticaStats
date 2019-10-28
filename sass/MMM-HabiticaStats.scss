@@ -91,13 +91,9 @@ $border-color: rgba(151, 151, 151, .2);
 		}
 	}
 
-	/* .level {
-		text-transform: uppercase;
-	}
-
 	.title {
 		text-transform: uppercase;
-	} */
+	}
 
 	.stat-ring {
 			margin: 0 20px 0 0;
@@ -152,8 +148,8 @@ $border-color: rgba(151, 151, 151, .2);
 
 	.stat-icon {
 		position: absolute;
-		top: 78px;
-		left: 56px;
+		top: calc(50% - 23px);
+		left: calc(50% - 23px);
 		width: 45px;
 		height: 45px;
 		filter: drop-shadow( 2px 2px 4px rgba(10, 10, 10, .5));
