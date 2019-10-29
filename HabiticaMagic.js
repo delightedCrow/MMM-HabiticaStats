@@ -156,6 +156,12 @@ class HabiticaUser {
 	get armor() {
 		return this.apiData.items.gear.equipped;
 	}
+	get costume() {
+		return this.apiData.items.gear.costume;
+	}
+	get outfit() {
+		return this.apiData.preferences.costume == true ? this.costume : this.armor;
+	}
 
 	_calculateStats() {
 		var stats = {
@@ -292,16 +298,19 @@ class HabiticaAPIManager {
 			this.fetchUserTasks(userID, userAPIToken, (tasks) => {
 				user.tasks = tasks;
 				callback(user);
+				Log.info(user);
 			});
 		});
 	}
 
 	replaceKeysWithContent(data) {
-		// replace equipped gear with full content version
-		for (var key in data.items.gear.equipped) {
-			let armorName = data.items.gear.equipped[key];
-			let armor = this.content.gear.flat[armorName];
-			data.items.gear.equipped[key] = armor;
+		// replace equipped and costume gear with full content version
+		for (var section of [data.items.gear.equipped, data.items.gear.costume]) {
+			for (var key in section) {
+				let armorName = section[key];
+				let armor = this.content.gear.flat[armorName];
+				section[key] = armor;
+			}
 		}
 		// replace party quest key with actual quest
 		if (data.party.quest.key) {
