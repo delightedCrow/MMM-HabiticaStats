@@ -1,11 +1,25 @@
-.MMM-HabiticaStats {
-  padding: 20px;
-  font-size: 25px;
-  text-align: left;
-  max-width: 560px;
+.MMM-HabiticaStats.background-blur {
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-radius: 25px; }
+
+.MMM-HabiticaStats.landscape {
+  max-width: 1500px;
+  min-width: 1200px; }
+  .MMM-HabiticaStats.landscape .column {
+    display: inline-block;
+    box-sizing: border-box;
+    float: left;
+    width: 49%; }
+
+.MMM-HabiticaStats.portrait {
+  width: 570px; }
+
+.MMM-HabiticaStats {
+  box-sizing: border-box;
+  padding: 10px 25px;
+  font-size: 25px;
+  text-align: left; }
   .MMM-HabiticaStats .main-stats {
     padding: 15px 0;
     text-transform: uppercase;
@@ -18,7 +32,8 @@
     .MMM-HabiticaStats .main-stats .small-stat-icon {
       position: relative;
       top: 3px;
-      margin-right: 15px; }
+      margin-right: 15px;
+      filter: drop-shadow(1px 1px 4px rgba(10, 10, 10, 0.3)); }
     .MMM-HabiticaStats .main-stats .wealth-group {
       padding-right: 40px; }
       .MMM-HabiticaStats .main-stats .wealth-group .unit {

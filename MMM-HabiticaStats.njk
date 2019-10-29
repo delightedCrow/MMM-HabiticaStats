@@ -1,86 +1,88 @@
-<div class="MMM-HabiticaStats">
+<div class="MMM-HabiticaStats {{config.orientation}} {% if config.backgroundBlurOn %}background-blur{% endif %}" {% if config.zoom %}style="zoom: {{config.zoom}}"{% endif %}>
 	<div class="title-header">
 		<img src="modules/MMM-HabiticaStats/assets/melior.svg"/>
 		<h1 class="light">{{user.displayName}}</h1>
 		<div class="spacer"></div>
-		</div>
-		<div class="main-stats clearfix">
-			<div class="small-stats">
-				<div class="level"><i class="hi-class hi-{{user.className}} habitica-icon small-stat-icon"></i>{{user.className}} <span class="middot-separator">&middot;</span> Level {{user.level}}</div>
-				<div class="wealth">
-					<span class="wealth-group">
-						<i class="small-stat-icon hi-gold habitica-icon"></i>{{user.goldCompact}}<span class="unit">gold</span>
-					</span>
-					<span class="wealth-group">
-						<i class="small-stat-icon hi-gem habitica-icon"></i>{{user.gems}}<span class="unit">gems</span>
-					</span>
-					{# <span class="wealth-group">
-						<i class="wealth-icon hi-hourglass habitica-icon"></i>{{user.hourglasses}}
-					</span> #}
+	</div>
+	<div class="module-body clearfix">
+		<div class="first-column column">
+			<div class="main-stats clearfix">
+				<div class="small-stats">
+					<div class="level"><i class="hi-class hi-{{user.className}} habitica-icon small-stat-icon"></i>{{user.className}} <span class="middot-separator">&middot;</span> Level {{user.level}}</div>
+					<div class="wealth">
+						<span class="wealth-group">
+							<i class="small-stat-icon hi-gold habitica-icon"></i>{{user.goldCompact}}<span class="unit">gold</span>
+						</span>
+						<span class="wealth-group">
+							<i class="small-stat-icon hi-gem habitica-icon"></i>{{user.gems}}<span class="unit">gems</span>
+						</span>
+					</div>
 				</div>
 			</div>
-		</div>
-		<div class="rings clearfix">
-			<div class="stat-ring">
-				<div class="title">Health</div>
-				<i class="stat-icon hi-health habitica-icon"></i>
-				<svg viewBox="0 0 39 39" class="circular-chart">
-					<circle class="shadow-circle" cx="50%" cy="50%" r="15.9155"/>
-					<circle class="circle health" stroke-dasharray="{{user.health / user.healthMax * 100}}, 100" cx="50%" cy="50%" r="15.9155"/>
-				</svg>
-				<div class="ring-stats">
-					<span class="current-stat">{{user.health}}</span> <span class="max-stat">/ {{user.healthMax}}</span>
+			<div class="rings clearfix">
+				<div class="stat-ring">
+					<div class="title">Health</div>
+					<i class="stat-icon hi-health habitica-icon"></i>
+					<svg viewBox="0 0 39 39" class="circular-chart">
+						<circle class="shadow-circle" cx="50%" cy="50%" r="15.9155"/>
+						<circle class="circle health" stroke-dasharray="{{user.health / user.healthMax * 100}}, 100" cx="50%" cy="50%" r="15.9155"/>
+					</svg>
+					<div class="ring-stats">
+						<span class="current-stat">{{user.health}}</span> <span class="max-stat">/ {{user.healthMax}}</span>
+					</div>
+				</div>
+
+				<div class="stat-ring">
+					<div class="title">Mana</div>
+					<i class="stat-icon hi-mana habitica-icon"></i>
+					<svg viewBox="0 0 39 39" class="circular-chart">
+						<circle class="shadow-circle" cx="50%" cy="50%" r="15.9155"/>
+						<circle class="circle mana" stroke-dasharray="{{user.mana / user.manaMax * 100}}, 100" cx="50%" cy="50%" r="15.9155"/>
+					</svg>
+					<div class="ring-stats">
+						<span class="current-stat">{{user.mana}}</span> <span class="max-stat">/ {{user.manaMax}}</span>
+					</div>
+				</div>
+
+				<div class="stat-ring">
+					<div class="title">Experience</div>
+					<i class="stat-icon hi-experience habitica-icon"></i>
+					<svg viewBox="0 0 39 39" class="circular-chart">
+						<circle class="shadow-circle" cx="50%" cy="50%" r="15.9155"/>
+						<circle class="circle experience" stroke-dasharray="{{user.experience / user.experienceToLevel * 100}}, 100" cx="50%" cy="50%" r="15.9155"/>
+					</svg>
+					<div class="ring-stats">
+						<span class="current-stat">{{user.experience}}</span> <span class="max-stat">/ {{user.experienceToLevel}}</span>
+					</div>
 				</div>
 			</div>
 
-			<div class="stat-ring">
-				<div class="title">Mana</div>
-				<i class="stat-icon hi-mana habitica-icon"></i>
-				<svg viewBox="0 0 39 39" class="circular-chart">
-					<circle class="shadow-circle" cx="50%" cy="50%" r="15.9155"/>
-					<circle class="circle mana" stroke-dasharray="{{user.mana / user.manaMax * 100}}, 100" cx="50%" cy="50%" r="15.9155"/>
-				</svg>
-				<div class="ring-stats">
-					<span class="current-stat">{{user.mana}}</span> <span class="max-stat">/ {{user.manaMax}}</span>
+			{% if user.health < user.tasks.dailyStats.totalDamageToSelf %}
+			<div class="death-warning">
+				<i class="fas fa-skull"></i>
+			WARNING: incoming damage is higher than remaining health!
+			</div>
+			{% endif %}
+		</div>
+		<div class="second-column column">
+			<div class="due-today big-stat-group clearfix">
+				<div class="title">Due Today</div>
+				<div class="stat-group due">
+					<i class="fas fa-calendar"></i><span class="big-stat">{{user.tasks.dailyStats.dueCount}}</span> Dailies
+				</div>
+				<div class="stat-group due">
+					<i class="fas fa-check-circle"></i><span class="big-stat">{{user.tasks.todosDueToday.length}}</span> To Dos
 				</div>
 			</div>
-
-			<div class="stat-ring">
-				<div class="title">Experience</div>
-				<i class="stat-icon hi-experience habitica-icon"></i>
-				<svg viewBox="0 0 39 39" class="circular-chart">
-					<circle class="shadow-circle" cx="50%" cy="50%" r="15.9155"/>
-					<circle class="circle experience" stroke-dasharray="{{user.experience / user.experienceToLevel * 100}}, 100" cx="50%" cy="50%" r="15.9155"/>
-				</svg>
-				<div class="ring-stats">
-					<span class="current-stat">{{user.experience}}</span> <span class="max-stat">/ {{user.experienceToLevel}}</span>
+			<div class="estimated-damage big-stat-group">
+				<div class="title">Estimated Damage</div>
+				<div class="stat-group">
+					<i class="fas fa-user"></i><span class="big-stat">{{user.tasks.dailyStats.totalDamageToSelf}}</span> damage to you
 				</div>
-			</div>
-		</div>
-
-		{% if user.health < user.tasks.dailyStats.totalDamageToSelf %}
-		<div class="death-warning">
-			<i class="fas fa-skull"></i>
-		WARNING: incoming damage is higher than remaining health!
-		</div>
-		{% endif %}
-
-		<div class="due-today big-stat-group clearfix">
-			<div class="title">Due Today</div>
-			<div class="stat-group due">
-				<i class="fas fa-calendar"></i><span class="big-stat">{{user.tasks.dailyStats.dueCount}}</span> Dailies
-			</div>
-			<div class="stat-group due">
-				<i class="fas fa-check-circle"></i><span class="big-stat">{{user.tasks.todosDueToday.length}}</span> To Dos
-			</div>
-		</div>
-		<div class="estimated-damage big-stat-group">
-			<div class="title">Estimated Damage</div>
-			<div class="stat-group">
-				<i class="fas fa-user"></i><span class="big-stat">{{user.tasks.dailyStats.totalDamageToSelf}}</span> damage to you
-			</div>
-			<div class="stat-group">
-				<i class="fas fa-users"></i><span class="big-stat">{{user.tasks.dailyStats.bossDamage}}</span> damage to your party members
+				<div class="stat-group">
+					<i class="fas fa-users"></i><span class="big-stat">{{user.tasks.dailyStats.bossDamage}}</span> damage to your party members
+				</div>
 			</div>
 		</div>
 	</div>
+</div>

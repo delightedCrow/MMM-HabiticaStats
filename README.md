@@ -1,7 +1,3 @@
-# WARNING: UNDER DEVELOPMENT!
-
-This module is currently under heavy development and probably doesn't work yet ;)
-
 # MMM-HabiticaStats: A MagicMirror² Module
 `MMM-HabiticaStats` is a module for [MagicMirror²](https://github.com/MichMich/MagicMirror) that displays player statistics for [Habitica](https://habitica.com).
 
@@ -26,6 +22,19 @@ modules: [
 		}
 	}
 ]
+````
+
+## Fixing The Background Blur
+
+If you're running MagicMirror using Electron (i.e, not in `serveronly` mode) and the background blur isn't showing up for you, try enabling Electron's `experimentalFeatures` option by adding the following block to your `config` options in your MagicMirror `config.js` file.
+
+````javascript
+electronOptions: {
+	webPreferences: {
+		experimentalFeatures: true,
+		nodeIntegration: false
+	}
+},
 ````
 
 ## Contributing & Development

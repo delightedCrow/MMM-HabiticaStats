@@ -6,9 +6,13 @@
  */
 Module.register("MMM-HabiticaStats", {
 	defaults: {
-		userID: null,
-		APIToken: null,
-		refreshRate: 60 * 60 * 1000 // 1 hour, in milliseconds
+		userID: null, // required
+		APIToken: null, // required
+
+		refreshRate: 60 * 60 * 1000, // 1 hour, in milliseconds
+		backgroundBlurOn: true,
+		zoom: null,
+		orientation: "landscape" // "portrait" or "landscape"
 	},
 
 	apiManager: null,
@@ -31,7 +35,10 @@ Module.register("MMM-HabiticaStats", {
 	},
 
 	getTemplateData: function() {
-		return {user: this.user};
+		return {
+			user: this.user,
+			config: this.config
+		};
 	},
 
 	start: function() {
