@@ -1,3 +1,13 @@
+/* HabiticaMagic.js
+ *
+ * A convienient way to interact with the Habitica API
+ * (https://habitica.com/apidoc/).
+ * 
+ * By JSC (@delightedCrow) & PJM (@ArrayOfFrost)
+ * Copyright © 2019 - MIT Licensed
+ *
+ */
+
 class HabiticaUserTasksManager {
 	constructor(data) {
 		this.apiData = data;

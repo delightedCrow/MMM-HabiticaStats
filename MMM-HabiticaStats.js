@@ -1,8 +1,9 @@
 /* Magic Mirror
  * Module: MMM-HabiticaStats
  *
- * By JSC (@delightedCrow)
- * MIT Licensed.
+ * By JSC (@delightedCrow) & PJM (@ArrayOfFrost)
+ * Copyright © 2019 - MIT Licensed
+ * 
  */
 Module.register("MMM-HabiticaStats", {
 	defaults: {

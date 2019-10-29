@@ -9,7 +9,7 @@
 
 ### Example Screenshots of MMM-HabiticaStats running in the default MagicMirror² theme:
 
-<img style="" width="300" src="screenshots/MM_portrait_DefaultTheme.png">
+<img width="500" src="screenshots/MM_portrait_DefaultTheme.png">
 
 Full MagicMirror² screen along with other modules:
 
@@ -17,7 +17,8 @@ Full MagicMirror² screen along with other modules:
 
 ### Example Screenshots of MMM-HabiticaStats running in the [WallberryTheme](https://github.com/delightedCrow/WallberryTheme):
 
-<img width="300" src="screenshots/WBtheme_portrait.png">
+<img width="500" src="screenshots/WBtheme_portrait.png">
+<img width="500" src="screenshots/WB-portrait-deathwarning.png">
 
 Full screen along with other modules:
 
