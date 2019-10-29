@@ -1,4 +1,4 @@
-<div class="MMM-HabiticaStats {{config.orientation}} {% if config.backgroundBlurOn %}background-blur{% endif %}" {% if config.zoom %}style="zoom: {{config.zoom}}"{% endif %}>
+<div class="MMM-HabiticaStats {{config.orientation}} {% if config.backgroundBlurOn %}background-blur{% endif %}" style="{% if config.zoom %}zoom: {{config.zoom}};{% endif %} {{config.positionCSS}}">
 	<div class="title-header">
 		<img src="modules/MMM-HabiticaStats/assets/melior.svg"/>
 		<h1 class="light">{{user.displayName}}</h1>

@@ -5,7 +5,29 @@
 
  You're gonna need a (free) Habitica account to get an API token (see the [Habitica wiki](https://habitica.fandom.com/wiki/API_Options#API_Token) for details on how to find your API Token in your Habitica account).
 
-## Using the module
+## Screenshots
+
+### Example Screenshots of MMM-HabiticaStats running in the default MagicMirror² theme:
+
+<img style="" width="300" src="screenshots/MM_portrait_DefaultTheme.png">
+
+Full MagicMirror² screen along with other modules:
+
+<img src="screenshots/MM_fullscreen_DefaultTheme.png">
+
+### Example Screenshots of MMM-HabiticaStats running in the [WallberryTheme](https://github.com/delightedCrow/WallberryTheme):
+
+<img width="300" src="screenshots/WBtheme_portrait.png">
+
+Full screen along with other modules:
+
+<img src="screenshots/WB_fullscreen_portrait.png">
+
+Full screen along with other modules, in landscape orientation:
+
+<img src="screenshots/WB_fullscreen_landscape.png">
+
+## Installing the Module
 
 To use this module:
 1.  Copy the `MMM-HabiticaStats` folder to your `MagicMirror/modules` directory
@@ -24,9 +46,26 @@ modules: [
 ]
 ````
 
+## Configuration options
+
+The following properties can be configured:
+
+
+| Option                      | Type    | Description
+| ----------------------------|---------| -----------
+| `userID`                    | String  | Your Habitica userID. Sign up for free at [https://habitica.com](https://habitica.com). <br><br>  This value is **REQUIRED**
+| `APIToken`                  | String  | Your Habitica API Token. <br><br>  This value is **REQUIRED**
+| `refreshRate`               | Number  | How often the module should refresh your Habitica data (in milliseconds). <br><br> **Possible values:** Any positive integer <br> **Default value:** `60 * 60 * 1000`, 1 hour
+| `backgroundBlurOn`          | Boolean | Turn the background blur on; good for making the text more legible on photo backgrounds. <br><br> **Possible values:** `true` (turn on) or `false` (turn off) <br> **Default value:** `true`
+| `zoom`                      | Float   | Scale this module using the CSS zoom property. <br><br> **Possible values:** A float number. Examples: `1.5` (scale up 150%), `0.7` (scale down 70%) <br> **Default value:** none
+| `orientation`               | String  | Whether to display the module in portrait or landscape orientation. <br><br> **Possible values:** `portrait`, `landscape`<br> **Default value:** `portrait`
+| `positionCSS`               | String  | Finely position this module with the power of CSS. BE CAREFUL, you can break all kinds of things with this. <br><br> **Possible values:** Any string of valid CSS. Example: `"float: right; position: relative; top: -10px;"` <br> **Default value:** none
+
 ## Fixing The Background Blur
 
-If you're running MagicMirror using Electron (i.e, not in `serveronly` mode) and the background blur isn't showing up for you, try enabling Electron's `experimentalFeatures` option by adding the following block to your `config` options in your MagicMirror `config.js` file.
+##### Please make sure you have the config option `backgroundBlurOn: true` set first!
+
+If you're running MagicMirror using Electron (i.e, not in `serveronly` mode) and the background blur isn't showing up for you, try enabling Electron's `experimentalFeatures` option by adding the following block to your `config` options in your MagicMirror `config.js` file:
 
 ````javascript
 electronOptions: {

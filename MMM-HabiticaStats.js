@@ -12,7 +12,8 @@ Module.register("MMM-HabiticaStats", {
 		refreshRate: 60 * 60 * 1000, // 1 hour, in milliseconds
 		backgroundBlurOn: true,
 		zoom: null,
-		orientation: "landscape" // "portrait" or "landscape"
+		orientation: "portrait", // "portrait" or "landscape"
+		positionCSS: null // put the module where you want
 	},
 
 	apiManager: null,
