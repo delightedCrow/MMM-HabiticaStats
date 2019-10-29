@@ -79,9 +79,11 @@
 				<div class="stat-group">
 					<i class="fas fa-user"></i><span class="big-stat">{{user.tasks.dailyStats.totalDamageToSelf}}</span> damage to you
 				</div>
+				{% if user.isOnBossQuest %}
 				<div class="stat-group">
 					<i class="fas fa-users"></i><span class="big-stat">{{user.tasks.dailyStats.bossDamage}}</span> damage to your party members
 				</div>
+				{% endif %}
 			</div>
 		</div>
 	</div>

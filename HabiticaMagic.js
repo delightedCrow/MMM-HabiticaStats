@@ -2,7 +2,7 @@
  *
  * A convienient way to interact with the Habitica API
  * (https://habitica.com/apidoc/).
- * 
+ *
  * By JSC (@delightedCrow) & PJM (@ArrayOfFrost)
  * Copyright © 2019 - MIT Licensed
  *
@@ -85,7 +85,7 @@ class HabiticaUserTasksManager {
 				stats.dailyDamageToSelf += Math.round(damage * 10) / 10; // round damage to nearest tenth because game does
 
 				// if we have a quest and a boss we can calculate the damage to party from this daily
-				if (user.quest.data !== null && user.quest.data.boss) {
+				if (user.isOnBossQuest) {
 					var bossDamage = (task.priority < 1) ? (taskDamage * task.priority) : taskDamage;
 					bossDamage *= user.quest.data.boss.str;
 					stats.bossDamage += bossDamage;
@@ -208,6 +208,20 @@ class HabiticaUser {
 
 	get quest() {
 		return (this.apiData.party.quest);
+	}
+
+	get isOnQuest() {
+		if (this.quest.data != null) {
+			return true;
+		}
+		return false;
+	}
+
+	get isOnBossQuest() {
+		if (this.isOnQuest && this.quest.data.boss != null) {
+			return true;
+		}
+		return false;
 	}
 
 	set tasks(userTaskManager) {
