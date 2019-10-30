@@ -162,6 +162,10 @@ class HabiticaUser {
 	get outfit() {
 		return this.apiData.preferences.costume == true ? this.costume : this.armor;
 	}
+	get isSleeping() {
+		return this.apiData.preferences.sleep;
+	}
+
 
 	_calculateStats() {
 		var stats = {
@@ -298,7 +302,6 @@ class HabiticaAPIManager {
 			this.fetchUserTasks(userID, userAPIToken, (tasks) => {
 				user.tasks = tasks;
 				callback(user);
-				Log.info(user);
 			});
 		});
 	}

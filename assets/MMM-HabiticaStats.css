@@ -60,14 +60,16 @@
     float: left; }
   .MMM-HabiticaStats .rings {
     margin: 15px 0px 15px -20px; }
-  .MMM-HabiticaStats .death-warning {
-    border: 1px solid #FF6165;
+  .MMM-HabiticaStats .warning {
+    line-height: 1.4em;
     padding: 15px; }
-    .MMM-HabiticaStats .death-warning i {
+    .MMM-HabiticaStats .warning i {
       font-size: 50px;
       display: block;
       float: left;
-      margin: 5px 20px 5px 5px; }
+      margin: 5px 25px 5px 5px; }
+  .MMM-HabiticaStats .death-warning {
+    border: 1px solid #FF6165; }
   .MMM-HabiticaStats .title {
     text-transform: uppercase; }
   .MMM-HabiticaStats .stat-ring {

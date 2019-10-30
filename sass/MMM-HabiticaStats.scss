@@ -99,16 +99,19 @@ $border-color: rgba(151, 151, 151, .2);
 		margin: 15px 0px 15px -20px;
 	}
 
-	.death-warning {
-		border: 1px solid $health-color;
+	.warning {
+		line-height: 1.4em;
 		padding: 15px;
 
 		i {
 			font-size: 50px;
 			display: block;
 			float: left;
-			margin: 5px 20px 5px 5px;
+			margin: 5px 25px 5px 5px;
 		}
+	}
+	.death-warning {
+		border: 1px solid $health-color;
 	}
 
 	.title {

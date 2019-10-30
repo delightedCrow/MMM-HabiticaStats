@@ -57,14 +57,23 @@
 				</div>
 			</div>
 
-			{% if user.health < user.tasks.dailyStats.totalDamageToSelf %}
-			<div class="death-warning">
+
+			{% if not user.isSleeping and user.health < user.tasks.dailyStats.totalDamageToSelf %}
+			<div class="warning death-warning">
 				<i class="fas fa-skull"></i>
 			WARNING: incoming damage is higher than remaining health!
 			</div>
 			{% endif %}
 		</div>
 		<div class="second-column column">
+			{% if user.isSleeping %}
+				<div class="sleep warning">
+					<div class="clearfix">
+						<i class="fas fa-bed"></i>
+						You are currently sleeping at the Inn. Damage is paused.
+					</div>
+				</div>
+			{% else %}
 			<div class="due-today big-stat-group clearfix">
 				<div class="title">Due Today</div>
 				<div class="stat-group due">
@@ -85,6 +94,7 @@
 				</div>
 				{% endif %}
 			</div>
+			{% endif %}
 		</div>
 	</div>
 </div>
