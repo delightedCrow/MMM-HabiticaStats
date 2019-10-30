@@ -11,6 +11,12 @@
 
 <img width="500" src="screenshots/MM_portrait_DefaultTheme.png">
 
+-------
+
+<img width="500" src="screenshots/sleep_portrait_defaultTheme.png">
+
+-------
+
 Full MagicMirror² screen along with other modules:
 
 <img src="screenshots/MM_fullscreen_DefaultTheme.png">
@@ -18,11 +24,18 @@ Full MagicMirror² screen along with other modules:
 ### Example Screenshots of MMM-HabiticaStats running in the [WallberryTheme](https://github.com/delightedCrow/WallberryTheme):
 
 <img width="500" src="screenshots/WBtheme_portrait.png">
+
+-------
+
 <img width="500" src="screenshots/WB-portrait-deathwarning.png">
+
+-------
 
 Full screen along with other modules:
 
 <img src="screenshots/WB_fullscreen_portrait.png">
+
+-------
 
 Full screen along with other modules, in landscape orientation:
 
