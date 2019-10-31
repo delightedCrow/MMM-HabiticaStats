@@ -245,14 +245,17 @@ class HabiticaUser {
 }
 
 class HabiticaAPIManager {
-	constructor(language="en") {
+	constructor(language="en", xclient) {
 		this.language = language;
+		// For more info on the xclient header: https://habitica.fandom.com/wiki/Guidance_for_Comrades#X-Client_Header
+		this.xclient = xclient;
 		this.content = {};
 	}
 
 	fetchContentData(callback) {
-		const url = 'https://habitica.com/api/v3/content';
-		let req = this.constructor.APIRequest(url);
+		const url = "https://habitica.com/api/v3/content?language=" +
+			this.language;
+		let req = this.constructor.APIRequest(url, this.xclient);
 		let hm = this;
 
 		req.onload = function() {
@@ -268,8 +271,8 @@ class HabiticaAPIManager {
 	}
 
 	fetchAuthenticatedUser(userID, userAPIToken, callback) {
-		const url = 'https://habitica.com/api/v3/user';
-		let req = this.constructor.authenticatedAPIRequest(url, userID, userAPIToken);
+		const url = "https://habitica.com/api/v3/user";
+		let req = this.constructor.authenticatedAPIRequest(url, this.xclient, userID, userAPIToken);
 		let hm = this;
 
 		req.onload = function() {
@@ -284,7 +287,7 @@ class HabiticaAPIManager {
 
 	fetchUserTasks(userID, userAPIToken, callback) {
 		const url = "https://habitica.com/api/v3/tasks/user";
-		let req = this.constructor.authenticatedAPIRequest(url, userID, userAPIToken);
+		let req = this.constructor.authenticatedAPIRequest(url, this.xclient, userID, userAPIToken);
 		let hm = this;
 
 		req.onload = function() {
@@ -323,7 +326,7 @@ class HabiticaAPIManager {
 	}
 
 	// API REQUEST FUNCTIONS
-	static authenticatedAPIRequest(url, userID, userAPIToken) {
+	static authenticatedAPIRequest(url, xclient, userID, userAPIToken) {
 		let req = new XMLHttpRequest();
 		req.open("GET", url);
 
@@ -331,18 +334,21 @@ class HabiticaAPIManager {
 			console.error("HabiticaAPI Error: ", this.statusText);
 		};
 
-		req.setRequestHeader('x-api-user', userID);
-		req.setRequestHeader('x-api-key', userAPIToken);
+		req.setRequestHeader("x-api-user", userID);
+		req.setRequestHeader("x-api-key", userAPIToken);
+		req.setRequestHeader("x-client", xclient);
 		return req;
 	}
 
-	static APIRequest(url) {
+	static APIRequest(url, xclient) {
 		let req = new XMLHttpRequest();
 		req.open("GET", url);
 
 		req.onerror = function() {
 			console.error("HabiticaAPI Error: ", this.statusText);
 		};
+
+		req.setRequestHeader("x-client", this.xclient);
 
 		return req;
 	}
