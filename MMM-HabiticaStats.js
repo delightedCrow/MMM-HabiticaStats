@@ -22,7 +22,7 @@ Module.register("MMM-HabiticaStats", {
 	updateTimer: null,
 
 	getScripts: function() {
-		return ["moment.js", "HabiticaMagic.js"];
+		return ["moment.js", this.file("vendor/HabiticaMagic-v1.0.0.min.js")];
 	},
 
 	getStyles: function() {
@@ -56,7 +56,6 @@ Module.register("MMM-HabiticaStats", {
 	fetchUserData: function() {
 		this.apiManager.fetchUserWithTasks(this.config.userID, this.config.APIToken, (user) => {
 				this.user = user;
-				Log.info("Fetched User: ", this.user);
 				this.updateDom();
 				this.updateTimer = setInterval(() => {
 					this.fetchUserData();
