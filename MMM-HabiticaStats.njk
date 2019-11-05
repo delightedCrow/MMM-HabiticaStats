@@ -1,4 +1,8 @@
 <div class="MMM-HabiticaStats {{config.orientation}} {% if config.backgroundBlurOn %}background-blur{% endif %}" style="{% if config.zoom %}zoom: {{config.zoom}};{% endif %} {{config.positionCSS}}">
+{% if error %}
+		<div>Error: {{error.error}}. {{error.message}}</div>
+</div>
+{% else %}
 	<div class="title-header">
 		<img src="modules/MMM-HabiticaStats/assets/melior.svg"/>
 		<h1 class="light">{{user.displayName}}</h1>
@@ -98,3 +102,4 @@
 		</div>
 	</div>
 </div>
+{% endif %}
