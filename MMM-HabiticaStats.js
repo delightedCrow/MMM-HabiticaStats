@@ -57,7 +57,7 @@ Module.register("MMM-HabiticaStats", {
 		// it looks like we're fetching the content data anew each time, but the
 		// browser should have this cached so unless Habitica has updated the
 		// content on their end this should end up being a local fetch to cache
-		// after the first time 
+		// after the first time
 		apiManager.fetchContentData()
 		.then(() => {
 			return apiManager.fetchUserWithTasks(this.config.userID, this.config.APIToken);
@@ -90,7 +90,6 @@ Module.register("MMM-HabiticaStats", {
 	},
 
 	scheduleUpdate: function() {
-		console.log("Scheduling update!");
 		this.updateTimer = setInterval(() => {
 				this.fetchUserData();
 			},

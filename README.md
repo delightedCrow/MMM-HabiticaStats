@@ -92,6 +92,12 @@ electronOptions: {
 
 ## Contributing & Development
 
+### Changelog
+
+To view the changelog see [CHANGELOG.md](CHANGELOG.md).
+
+### Building CSS
+
 This module uses SASS, so to make style changes please edit the `MMM-HabiticaStats.scss` file and use node-sass to compile the css file:
 
 - Run the command `npm install` to install node-sass.
