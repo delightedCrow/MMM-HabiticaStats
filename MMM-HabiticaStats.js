@@ -22,7 +22,7 @@ Module.register("MMM-HabiticaStats", {
 	updateTimer: null,
 
 	getScripts: function() {
-		return ["moment.js", this.file("vendor/HabiticaMagic-v2.0.0.min.js")];
+		return ["moment.js", this.file("vendor/HabiticaMagic-v2.0.1.min.js")];
 	},
 
 	getStyles: function() {

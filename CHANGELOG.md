@@ -5,7 +5,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-- Nothing yet :)
+### Changed
+- Updating to HabiticaMagic-v2.0.1 to fix mage class title and icons.
+- Changed header icon to FontAwesome Scroll to better fit Habitica's image guidelines.
+- Cleaning up screenshots.
 
 ## 1.1.0 - 2019-11-4
 ### Added

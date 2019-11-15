@@ -68,11 +68,11 @@ $border-color: rgba(151, 151, 151, .2);
 
 	.title-header {
 
-		img {
-			display: inline-block;
-			width: 60px;
-			margin-bottom: -5px;
+		.title-icon {
+			position: relative;
+			font-size: 1.6em;
 			padding-right: 10px;
+			top: -3px;
 		}
 
 		h1 {
@@ -237,6 +237,8 @@ $border-color: rgba(151, 151, 151, .2);
 .habitica-icon {
 	display: inline-block;
 }
+
+/* The following icons were designed for HabitRPG and are licensed under CC-BY-NC-SA 3.0 */
 
 .hi-gold {
 	width: 24px;

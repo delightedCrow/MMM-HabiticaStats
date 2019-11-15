@@ -40,11 +40,11 @@
         margin-left: 15px; }
     .MMM-HabiticaStats .main-stats .level {
       margin-bottom: 10px; }
-  .MMM-HabiticaStats .title-header img {
-    display: inline-block;
-    width: 60px;
-    margin-bottom: -5px;
-    padding-right: 10px; }
+  .MMM-HabiticaStats .title-header .title-icon {
+    position: relative;
+    font-size: 1.6em;
+    padding-right: 10px;
+    top: -3px; }
   .MMM-HabiticaStats .title-header h1 {
     display: inline-block;
     font-size: 49px;
@@ -151,6 +151,7 @@
 .habitica-icon {
   display: inline-block; }
 
+/* The following icons were designed for HabitRPG and are licensed under CC-BY-NC-SA 3.0 */
 .hi-gold {
   width: 24px;
   height: 24px;
