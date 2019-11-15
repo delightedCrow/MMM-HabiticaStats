@@ -2,6 +2,8 @@
 {% if error %}
 		<div>Error: {{error.error}}. {{error.message}}</div>
 </div>
+{% elif not user %}
+<div>Loading MMM-HabiticaStats...</div>
 {% else %}
 	<div class="title-header">
 		<i class="fas fa-scroll title-icon"></i>
