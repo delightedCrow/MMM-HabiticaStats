@@ -13,7 +13,7 @@
 
 -------
 
-<img width="500" src="screenshots/sleep_portrait_defaultTheme.png">
+<img width="500" src="screenshots/MM_landscape_DefaultTheme.png">
 
 -------
 
