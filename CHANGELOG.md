@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Changed header icon to FontAwesome Scroll to better fit Habitica's image guidelines.
 - Cleaning up screenshots.
 
+### Added
+- Now displays a "loading..." message while data is being fetched for the first time.
+
 ## 1.1.0 - 2019-11-4
 ### Added
 - The changelog file :)
