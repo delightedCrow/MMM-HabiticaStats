@@ -20,6 +20,7 @@ Module.register("MMM-HabiticaStats", {
 	user: null,
 	fetchError: null,
 	updateTimer: null,
+	minRefreshRate: 30 * 1000, // minimum Refresh rate should be 30s
 
 	getScripts: function() {
 		return ["moment.js", this.file("vendor/HabiticaMagic-v2.0.1.min.js")];
@@ -46,13 +47,17 @@ Module.register("MMM-HabiticaStats", {
 
 	start: function() {
 		Log.info("Starting module: " + this.name);
+		if (this.config.refreshRate < this.minRefreshRate) {
+			this.config.refreshRate = this.minRefreshRate;
+			Log.error("WARNING: refreshRate was configured to be lower than the minimum 30 seconds. MMM-HabiticaStats will use 30 second refresh rate instead.");
+		}
 		this.fetchUserData();
 
 	},
 
 	fetchUserData: function() {
 		// If you're doing a significant fork of MMM-HabiticaStats you might want to change the xclient header here. For more info on the xclient header: https://habitica.fandom.com/wiki/Guidance_for_Comrades#X-Client_Header
-		let xclient = "6c2c57d5-67c3-4edf-9a74-2d6d70aa4c56-MMM-HabiticaStats";
+		let xclient = "6c2c57d5-67c3-4edf-9a74-2d6d70aa4c56-MMM-HabiticaStats-v1.3.0";
 		apiManager = new HabiticaAPIManager(xclient);
 		// it looks like we're fetching the content data anew each time, but the
 		// browser should have this cached so unless Habitica has updated the
@@ -90,7 +95,7 @@ Module.register("MMM-HabiticaStats", {
 	},
 
 	scheduleUpdate: function() {
-		this.updateTimer = setInterval(() => {
+		this.updateTimer = setTimeout(() => {
 				this.fetchUserData();
 			},
 			this.config.refreshRate
@@ -99,7 +104,7 @@ Module.register("MMM-HabiticaStats", {
 
 	suspend: function() {
 		Log.info("Suspending MMM-HabiticaStats...");
-		clearInterval(this.updateTimer);
+		clearTimeout(this.updateTimer);
 	},
 
 	resume: function() {
