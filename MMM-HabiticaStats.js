@@ -95,7 +95,7 @@ Module.register("MMM-HabiticaStats", {
 	},
 
 	scheduleUpdate: function() {
-		this.updateTimer = setInterval(() => {
+		this.updateTimer = setTimeout(() => {
 				this.fetchUserData();
 			},
 			this.config.refreshRate
@@ -104,7 +104,7 @@ Module.register("MMM-HabiticaStats", {
 
 	suspend: function() {
 		Log.info("Suspending MMM-HabiticaStats...");
-		clearInterval(this.updateTimer);
+		clearTimeout(this.updateTimer);
 	},
 
 	resume: function() {

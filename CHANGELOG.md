@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Fixed
 - Adding in a guard so that refreshRate for accessing the API cannot be set lower than 30 seconds in the config.
+- Fixing error where we were using setInterval instead of setTimeout in our scheduleUpdate function, resulting in too many requests to the Habitica API over time (fixes issue #1)
 
 ## 1.2.0 - 2019-11-15
 ### Changed
