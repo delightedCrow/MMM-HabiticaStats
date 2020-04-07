@@ -20,6 +20,7 @@ Module.register("MMM-HabiticaStats", {
 	user: null,
 	fetchError: null,
 	updateTimer: null,
+	minRefreshRate: 30 * 1000, // minimum Refresh rate should be 30s
 
 	getScripts: function() {
 		return ["moment.js", this.file("vendor/HabiticaMagic-v2.0.1.min.js")];
@@ -46,6 +47,10 @@ Module.register("MMM-HabiticaStats", {
 
 	start: function() {
 		Log.info("Starting module: " + this.name);
+		if (this.config.refreshRate < this.minRefreshRate) {
+			this.config.refreshRate = this.minRefreshRate;
+			Log.error("WARNING: refreshRate was configured to be lower than the minimum 30 seconds. MMM-HabiticaStats will use 30 second refresh rate instead.");
+		}
 		this.fetchUserData();
 
 	},
