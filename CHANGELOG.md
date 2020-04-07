@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 - Nothing yet :)
 
-## 1.3.0 - 2019-11-15
+## 1.3.0 - 2020-4-6
 ### Added
 - Added the latest MMM-HabiticaStats version number to the xclient header so Habitica can tell which versions of MMM-HabiticaStats are making which calls.
 
