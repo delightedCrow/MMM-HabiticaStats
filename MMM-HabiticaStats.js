@@ -57,7 +57,7 @@ Module.register("MMM-HabiticaStats", {
 
 	fetchUserData: function() {
 		// If you're doing a significant fork of MMM-HabiticaStats you might want to change the xclient header here. For more info on the xclient header: https://habitica.fandom.com/wiki/Guidance_for_Comrades#X-Client_Header
-		let xclient = "6c2c57d5-67c3-4edf-9a74-2d6d70aa4c56-MMM-HabiticaStats";
+		let xclient = "6c2c57d5-67c3-4edf-9a74-2d6d70aa4c56-MMM-HabiticaStats-v1.3.0";
 		apiManager = new HabiticaAPIManager(xclient);
 		// it looks like we're fetching the content data anew each time, but the
 		// browser should have this cached so unless Habitica has updated the
